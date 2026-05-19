@@ -6,6 +6,9 @@ The goal of the project was to build a research workflow similar to what would b
 
 ---
 
+![alt text](https://github.com/jergusnadasky/pairs-trading-statarb/blob/main/img/statarb_demo.png "Demo Image")
+
+
 # Project Overview
 
 This project analyzes historical equity price data to identify pairs of securities that maintain a long-term statistical relationship. When the relationship deviates beyond a threshold, the strategy enters a long/short position expecting the spread to revert back toward its historical mean.

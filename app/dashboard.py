@@ -25,6 +25,37 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── Top Header ────────────────────────────────────────────────────────────────
+st.html("""
+<div style="
+    padding-top:0.2rem;
+    padding-bottom:1rem;
+">
+
+    <div style="
+        font-size:2.4rem;
+        font-weight:800;
+        letter-spacing:-0.04em;
+        background:linear-gradient(135deg,#378ADD 0%,#1D9E75 100%);
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+    ">
+        Pairs Trading · StatArb
+    </div>
+
+    <div style="
+        color:#6b7280;
+        font-size:0.95rem;
+        margin-top:0.2rem;
+    ">
+        Statistical mean-reversion · Cointegration research · Interactive backtesting
+    </div>
+
+</div>
+""")
+
+st.markdown("---")
+
 # ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -98,7 +129,6 @@ with st.sidebar:
 
 # ── Landing state ──────────────────────────────────────────────────────────────
 if not run_btn and "results" not in st.session_state:
-    st.markdown('<p class="main-title">Pairs Trading · StatArb</p>', unsafe_allow_html=True)
     st.markdown('<p class="subtitle">Statistical mean-reversion · Engle-Granger cointegration · Out-of-sample backtest</p>', unsafe_allow_html=True)
 
     c1, c2, c3 = st.columns(3)
@@ -256,7 +286,6 @@ if run_btn or "results" in st.session_state:
     trade_log = st.session_state["trade_log"]
 
     # ── Header ────────────────────────────────────────────────────────────────
-    st.markdown('<p class="main-title">Pairs Trading · StatArb</p>', unsafe_allow_html=True)
     hcol1, hcol2 = st.columns([3, 1])
     with hcol1:
         st.markdown(f'<p class="subtitle">Best pair: <span class="pair-badge">{t1} / {t2}</span>  ·  p-value: <b>{best["p_value"]:.4f}</b>  ·  hedge ratio: <b>{hedge_ratio:.4f}</b>  ·  {len(sig_pairs)} cointegrated pair(s) found</p>', unsafe_allow_html=True)
@@ -513,13 +542,53 @@ if run_btn or "results" in st.session_state:
         st.dataframe(trade_log, use_container_width=True, hide_index=True)
     else:
         st.info("No active historical trade entries found in results/trade_log.csv.")
-
+        
     # ── Footer ────────────────────────────────────────────────────────────────
     st.markdown("---")
-    st.markdown(
-        "<p style='text-align:center;color:#6b7280;font-size:0.8rem;'>"
-        "Built with Python · statsmodels · Plotly · Streamlit &nbsp;|&nbsp; "
-        "<a href='https://github.com/jergusnadasky/pairs-trading-statarb' style='color:#378ADD;'>GitHub →</a>"
-        "</p>",
-        unsafe_allow_html=True
-    )
+
+    st.html("""
+    <div style="
+        text-align:center;
+        color:#6b7280;
+        font-size:0.82rem;
+        padding-top:0.5rem;
+        padding-bottom:1rem;
+    ">
+
+        <div>
+            Built by <b>Jergus Nadasky</b>
+        </div>
+
+        <div style="margin-top:0.6rem;">
+
+            <a href="https://github.com/jergusnadasky/pairs-trading-statarb"
+            target="_blank"
+            style="
+                color:#378ADD;
+                text-decoration:none;
+                margin-right:18px;
+            ">
+            GitHub
+            </a>
+
+            <a href="https://linkedin.com/in/jergusnadasky"
+            target="_blank"
+            style="
+                color:#378ADD;
+                text-decoration:none;
+            ">
+            LinkedIn
+            </a>
+
+        </div>
+
+        <div style="
+            margin-top:0.8rem;
+            font-size:0.75rem;
+            color:#4b5563;
+        ">
+            Python · statsmodels · Plotly · Streamlit · Quantitative Finance
+        </div>
+
+    </div>
+    """)

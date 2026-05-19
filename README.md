@@ -21,7 +21,7 @@ The project includes:
 - portfolio analytics
 - interactive dashboard visualization
 
-Historical price data is downloaded using the :contentReference[oaicite:0]{index=0}.
+Historical market data is downloaded using `yfinance`.
 
 ---
 
@@ -49,11 +49,11 @@ because the strategy is based on daily statistical relationships rather than int
 
 # Pair Selection Process
 
-Given a universe of tickers, the project evaluates every possible pair:
+Given a universe of tickers, the project evaluates every possible pair combination:
 
-\[
+$$
 \binom{n}{2}
-\]
+$$
 
 Each pair is tested using the Engle-Granger cointegration test.
 
@@ -81,20 +81,20 @@ The statistically strongest pair is selected for backtesting.
 
 The spread between two assets is constructed as:
 
-\[
+$$
 S_t = P_{1,t} - \beta P_{2,t}
-\]
+$$
 
 where:
 
-- \(P_1\) and \(P_2\) are asset prices
-- \(\beta\) is the hedge ratio estimated from regression
+- $P_1$ and $P_2$ are asset prices
+- $\beta$ is the hedge ratio estimated from regression
 
 The spread is standardized using a rolling z-score:
 
-\[
+$$
 Z_t = \frac{S_t - \mu}{\sigma}
-\]
+$$
 
 Trading logic:
 
@@ -115,137 +115,163 @@ Running:
 ```bash
 python src/main.py
 ```
+
 executes the full pipeline:
 
-Downloads market data from Yahoo Finance
-Finds cointegrated pairs
-Selects the strongest pair
-Computes spread and z-score
-Generates trading signals
-Runs the backtest
-Computes portfolio metrics
-Exports dashboard-ready analytics
-Launches the dashboard
+1. Downloads market data from Yahoo Finance
+2. Finds cointegrated pairs
+3. Selects the strongest pair
+4. Computes spread and z-score
+5. Generates trading signals
+6. Runs the backtest
+7. Computes portfolio metrics
+8. Exports dashboard-ready analytics
+9. Launches the dashboard
 
 Generated outputs include:
 
+```text
 results/
 ├── cointegration_results.csv
 ├── equity_curve.csv
 ├── trade_log.csv
 ├── dashboard_data.json
-Dashboard Features
+```
 
-The Streamlit dashboard visualizes the entire research pipeline.
+---
 
-Equity Curve Comparison
+# Dashboard Features
+
+The Streamlit dashboard visualizes the complete research pipeline through interactive analytics and portfolio visualizations.
+
+## Equity Curve Comparison
 
 Compares:
 
-statistical arbitrage strategy performance
-buy-and-hold benchmark performance
+- statistical arbitrage strategy performance
+- buy-and-hold benchmark performance
 
-using interactive Plotly charts.
+using interactive Plotly visualizations.
 
-Z-Score Signal Visualization
+## Z-Score Signal Visualization
 
 Displays:
 
-spread deviations
-long/short signals
-entry thresholds
-mean-reversion behavior
-Cointegrated Pair Reporting
+- spread deviations
+- long/short trading signals
+- entry and exit thresholds
+- mean-reversion behavior
+
+## Cointegrated Pair Reporting
 
 Shows:
 
-candidate pairs
-p-values
-hedge ratios
+- statistically significant pairs
+- p-values
+- hedge ratios
+- pair-selection results
 
-for all statistically significant combinations.
+for all valid combinations in the ticker universe.
 
-Correlation Heatmap
+## Correlation Heatmap
 
-The dashboard includes a correlation heatmap to visualize relationships across the entire ticker universe.
+The dashboard includes a correlation heatmap to visualize relationships across the full asset universe.
 
-This helps:
+The heatmap helps:
 
-identify sector clustering
-observe highly correlated assets
-compare pair relationships outside of cointegration
-visually inspect the structure of the dataset
+- identify sector clustering
+- observe highly correlated securities
+- compare relationships outside of cointegration
+- inspect the structure of the dataset
 
-The heatmap is generated from the full correlation matrix of adjusted close returns.
+The heatmap is generated using the correlation matrix of adjusted close returns.
 
-Trade Log
+## Trade Log
 
 Displays trade-level execution information including:
 
-entry dates
-exit dates
-trade direction
-portfolio impact
-Performance Metrics
+- entry dates
+- exit dates
+- trade direction
+- portfolio impact
 
-The project computes several portfolio and risk metrics commonly used in quantitative finance.
+---
 
-Metric	Description
-CAGR	Compound annual growth rate
-Annual Return	Average yearly return
-Annual Volatility	Standard deviation of returns
-Sharpe Ratio	Return adjusted for volatility
-Sortino Ratio	Return adjusted for downside volatility
-Max Drawdown	Largest peak-to-trough decline
-Calmar Ratio	Return relative to drawdown
-Win Rate	Percentage of positive return periods
+# Performance Metrics
+
+The project computes several portfolio and risk metrics commonly used in quantitative finance and systematic trading research.
+
+| Metric | Description |
+|---|---|
+| CAGR | Compound annual growth rate |
+| Annual Return | Average yearly return |
+| Annual Volatility | Standard deviation of returns |
+| Sharpe Ratio | Return adjusted for volatility |
+| Sortino Ratio | Return adjusted for downside volatility |
+| Max Drawdown | Largest peak-to-trough decline |
+| Calmar Ratio | Return relative to drawdown |
+| Win Rate | Percentage of positive return periods |
 
 The dashboard compares these metrics against a buy-and-hold benchmark.
 
-Dashboard Data Export
+---
 
-The project exports all visualization-ready analytics into:
+# Dashboard Data Export
 
+The project exports all dashboard-ready analytics into:
+
+```text
 results/dashboard_data.json
+```
 
 This JSON file stores:
 
-selected pair information
-spread values
-z-scores
-trading signals
-strategy returns
-benchmark returns
-equity curves
-portfolio metrics
-correlation matrices
-pair selection results
+- selected pair information
+- spread values
+- z-scores
+- trading signals
+- strategy returns
+- benchmark returns
+- equity curves
+- portfolio metrics
+- correlation matrices
+- pair selection results
 
 Separating dashboard data generation from dashboard rendering keeps the research pipeline modular and easier to extend.
 
-Technologies Used
-Quantitative Finance / Statistics
-Statistical Arbitrage
-Cointegration Testing
-Mean Reversion Modeling
-Time-Series Analysis
-Econometrics
-Portfolio Analytics
-Risk Modeling
-Python Libraries
-pandas
-numpy
-statsmodels
-plotly
-streamlit
-yfinance
-Skills Demonstrated
-Quantitative research
-Statistical modeling
-Financial time-series analysis
-Econometric testing
-Backtesting system development
-Portfolio analytics
-Data visualization
-Python-based financial engineering
-Interactive dashboard development
+---
+
+# Technologies Used
+
+## Quantitative Finance / Statistics
+
+- Statistical Arbitrage
+- Cointegration Testing
+- Mean Reversion Modeling
+- Time-Series Analysis
+- Econometrics
+- Portfolio Analytics
+- Risk Modeling
+
+## Python Libraries
+
+- pandas
+- numpy
+- statsmodels
+- plotly
+- streamlit
+- yfinance
+
+---
+
+# Skills Demonstrated
+
+- Quantitative research
+- Statistical modeling
+- Financial time-series analysis
+- Econometric testing
+- Backtesting system development
+- Portfolio analytics
+- Data visualization
+- Python-based financial engineering
+- Interactive dashboard development

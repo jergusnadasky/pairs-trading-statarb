@@ -261,29 +261,117 @@ if run_btn or "results" in st.session_state:
         st.markdown(f'<p style="text-align:right;color:#6b7280;font-size:0.82rem;padding-top:0.5rem;">Train: {train_start} → {train_end}<br>Test: {test_start} → {test_end}</p>', unsafe_allow_html=True)
 
     # ── Metrics ───────────────────────────────────────────────────────────────
-    m1, m2, m3, m4, m5 = st.columns(5)
+
+    row1 = st.columns(4)
+    row2 = st.columns(4)
+
     def color(v, up=True):
-        if v > 0: return "green" if up else "red"
-        if v < 0: return "red" if up else "green"
+
+        if v > 0:
+            return "green" if up else "red"
+
+        if v < 0:
+            return "red" if up else "green"
+
         return "blue"
 
-    metrics = [
-        (m1, "Ann. return", sm["ann_return"], bm["ann_return"], "%", True),
-        (m2, "Ann. vol", sm["ann_vol"], bm["ann_vol"], "%", False),
-        (m3, "Sharpe", sm["sharpe"], bm["sharpe"], "", True),
-        (m4, "Max drawdown", sm["max_drawdown"], bm["max_drawdown"], "%", True),
-        (m5, "Win rate", sm["win_rate"], bm["win_rate"], "%", True),
+
+    metric_cards = [
+
+        # Row 1
+        (
+            row1[0],
+            "CAGR",
+            sm["cagr"],
+            bm["cagr"],
+            "%",
+            True,
+        ),
+
+        (
+            row1[1],
+            "Ann. return",
+            sm["ann_return"],
+            bm["ann_return"],
+            "%",
+            True,
+        ),
+
+        (
+            row1[2],
+            "Ann. vol",
+            sm["ann_vol"],
+            bm["ann_vol"],
+            "%",
+            False,
+        ),
+
+        (
+            row1[3],
+            "Sharpe",
+            sm["sharpe"],
+            bm["sharpe"],
+            "",
+            True,
+        ),
+
+        # Row 2
+        (
+            row2[0],
+            "Sortino",
+            sm["sortino"],
+            bm["sortino"],
+            "",
+            True,
+        ),
+
+        (
+            row2[1],
+            "Calmar",
+            sm["calmar"],
+            bm["calmar"],
+            "",
+            True,
+        ),
+
+        (
+            row2[2],
+            "Max drawdown",
+            sm["max_drawdown"],
+            bm["max_drawdown"],
+            "%",
+            True,
+        ),
+
+        (
+            row2[3],
+            "Win rate",
+            sm["win_rate"],
+            bm["win_rate"],
+            "%",
+            True,
+        ),
     ]
-    for col, label, sv, bv, unit, up in metrics:
+
+    for col, label, sv, bv, unit, up in metric_cards:
+
         better = sv > bv if up else sv < bv
+
         arrow = "▲" if better else "▼"
+
         c = color(sv, up)
+
         col.markdown(f"""
         <div class="metric-card">
             <div class="metric-label">{label}</div>
-            <div class="metric-val {c}">{sv:.2f}{unit}</div>
-            <div class="metric-sub">{arrow} vs B&H {bv:.2f}{unit}</div>
-        </div>""", unsafe_allow_html=True)
+            <div class="metric-val {c}">
+                {sv:.2f}{unit}
+            </div>
+            <div class="metric-sub">
+                {arrow} vs B&H {bv:.2f}{unit}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -374,7 +462,7 @@ if run_btn or "results" in st.session_state:
                 text_auto=".2f",
                 aspect="auto",
                 color_continuous_scale="RdBu",
-                zmin=-1,
+                zmin=0,
                 zmax=1,
             )
 

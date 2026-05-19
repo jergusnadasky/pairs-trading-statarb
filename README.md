@@ -114,7 +114,7 @@ Running:
 
 ```bash
 python src/main.py
-
+```
 executes the full pipeline:
 
 Downloads market data from Yahoo Finance

@@ -83,6 +83,10 @@ with st.sidebar:
     with col4:
         test_end = st.date_input("Test end", value=pd.to_datetime("2024-01-01"))
 
+    run_btn = st.button("  Run analysis", use_container_width=True, type="primary")
+    st.markdown("---")
+
+
     st.markdown("**Strategy parameters**")
     zscore_window = st.slider("Z-score window (days)", 20, 120, 60, 5)
     entry_z = st.slider("Entry threshold (σ)", 1.0, 3.5, 2.0, 0.25)
@@ -91,7 +95,6 @@ with st.sidebar:
     tc = st.slider("Transaction cost (bps per leg)", 0, 30, 10, 1) / 10000
 
     st.markdown("---")
-    run_btn = st.button("🚀  Run analysis", use_container_width=True, type="primary")
 
 # ── Landing state ──────────────────────────────────────────────────────────────
 if not run_btn and "results" not in st.session_state:

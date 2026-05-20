@@ -4,6 +4,8 @@ A quantitative finance project focused on statistical arbitrage, cointegration t
 
 The goal of the project was to build a research workflow similar to what would be used in a quantitative research or systematic trading environment while keeping the architecture modular, reproducible, and deployment-ready.
 
+🔗 The app is deployed at: https://cointegration-lab.streamlit.app/
+
 ---
 
 ![alt text](https://github.com/jergusnadasky/pairs-trading-statarb/blob/main/img/statarb_demo.png "Demo Image")
